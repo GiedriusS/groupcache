@@ -70,6 +70,14 @@ var (
 	initPeerServer     func()
 )
 
+// RemoveGroup removes the named group previously created with NewGroup.
+// It blocks until all of the current requests have been executed.
+func RemoveGroup(name string) {
+	mu.Lock()
+	delete(groups, name)
+	mu.Unlock()
+}
+
 // GetGroup returns the named group previously created with NewGroup, or
 // nil if there's no such group.
 func GetGroup(name string) *Group {
